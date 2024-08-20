@@ -128,9 +128,10 @@ def main():
     GenImages("img3.jpg", 10, "img3")
     print()
 
-    ShowImg("img1")
-    ShowImg("img2")
-    ShowImg("img3")
+    # uncomment it if you want to see generated img
+    # ShowImg("img1")
+    # ShowImg("img2")
+    # ShowImg("img3")
 
     """
     #just to check
