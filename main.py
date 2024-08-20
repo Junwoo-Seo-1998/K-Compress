@@ -3,9 +3,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import time
 import math
-def kmeanCompute(data:np.array, ks:np.array):
+def kmeanCompute(data : np.array, ks : np.array):
     # time0 = time.time()
-    cluster=[0 for i in range(data.shape[0])]
+    cluster = [0 for i in range(data.shape[0])]
     '''
     #slow
     dist_list = [0 for i in range(ks.shape[0])]
@@ -14,43 +14,43 @@ def kmeanCompute(data:np.array, ks:np.array):
             dist_list[k]=np.sum(np.square(data[i] - ks[k]))
         cluster[i]=np.argmin(dist_list)
     '''
-    labels=[]
+    labels = []
     for k in range(ks.shape[0]):
         # print(np.sum(np.square((data - ks[k])), axis=1).shape)
-        labels.append(np.sum(np.square(data-ks[k]), axis=1))
+        labels.append(np.sum(np.square(data-ks[k]), axis = 1))
     for i in range(data.shape[0]):
-        min_k=-1
-        min_val=math.inf
+        min_k = -1
+        min_val = math.inf
         for k in range(ks.shape[0]):
             if(min_val>labels[k][i]):
-                min_k=k
+                min_k = k
                 min_val=labels[k][i]
-        cluster[i]=min_k
+        cluster[i] = min_k
     # print("cluster time took: ", time.time() - time0)
     return cluster
 
-def recomputeMeans(data:np.array, cluster:list, ks:np.array):
+def recomputeMeans(data : np.array, cluster : list, ks : np.array):
     result = np.zeros(shape=ks.shape)
     # time0 = time.time()
     for i in range(ks.shape[0]):
-        result[i]=np.average(data[np.array(cluster)==i], axis = 0)
+        result[i] = np.average(data[np.array(cluster) == i], axis = 0)
     # print("recomputeMeans time took: ", time.time() - time0)
     return result
-def kmean(data:np.array, ks:np.array):
+def kmean(data : np.array, ks : np.array):
     cluster = kmeanCompute(data, ks)
     # print("cluster: ",cluster)
-    ks=recomputeMeans(data, cluster, ks)
+    ks = recomputeMeans(data, cluster, ks)
     # print("recomputed centroids: ", ks)
-    prev=cluster
+    prev = cluster
     while(True):
-        cluster=kmeanCompute(data, ks)
+        cluster = kmeanCompute(data, ks)
         # print("cluster: ", cluster)
         if(cluster==prev):
             #print("final centroids: ", ks)
             break
-        ks=recomputeMeans(data, cluster, ks)
+        ks = recomputeMeans(data, cluster, ks)
         # print("recomputed centroids: ", ks)
-        prev=cluster
+        prev = cluster
 
     return ks
 
