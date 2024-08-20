@@ -1,3 +1,4 @@
+![workflow](https://github.com/Junwoo-Seo-1998/K-Compress/actions/workflows/RunPython.yml/badge.svg)
 # K-Compress
 Simplifying Images through Color Clustering
 
